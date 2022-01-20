@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="">
+<head>
+    <title>All conversations</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Conversations list</h1>
+<table>
+    <tr>
+        <th>Conversation name</th>
+        <th>Conversation ID</th>
+        <th>Conversation Content</th>
+    </tr>
+    <tr th:each="conversation : ${conversationsList}">
+        <td th:text="${conversation.getConversationName()}"></td>
+        <td th:text="${conversation.getConversationUUID()}"></td>
+        <td><a href="/conversationView.html" th:href="@{/conversationView/{UUID}(UUID=${conversation.getConversationUUID()})}">View Messages</a></td>
+    </tr>
+</table>
+
+<p><a href="/index.html" th:href="@{/}">Return to main page</a></p>
+
+
+
+
+</body>
+</html>

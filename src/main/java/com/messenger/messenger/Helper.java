@@ -1,6 +1,6 @@
 package com.messenger.messenger;
 
-
+/* TODO: уже есть в пакете exception */
 public class Helper {
 
     public static int StrCompare(String str1, String str2) {

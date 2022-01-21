@@ -1,5 +1,6 @@
 package com.example.demo;
 
+/* TODO: Оптимизация импортов осуществляется с помощью Ctrl + Alt + O (это не ноль!) */
 import java.util.*;
 
 import com.messenger.AbstractMessage;
@@ -17,6 +18,7 @@ public class ApplicationClass {
 
     public static void main(String[] args) {
         SpringApplication.run(ApplicationClass.class, args);
+        // Здесь можно делать любую инициализацию
     }
 
     @Bean

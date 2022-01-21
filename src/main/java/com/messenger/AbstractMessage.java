@@ -7,13 +7,13 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
 
-
+/* TODO: Почитать про POJO (Plain Old Java Object). Это сущность, как и Conversation. Их нужно в отдельный пакет */
 
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
-        property = "type")
+        property = "type" /* TODO: в константы */)
 @JsonSubTypes({
-        @JsonSubTypes.Type(value = TextMessage.class, name = "TextMessage")
+        @JsonSubTypes.Type(value = TextMessage.class, name = "TextMessage" /* TODO: в константы */)
         //,@JsonSubTypes.Type(value = Cat.class, name = "cat")
 })
 
@@ -29,5 +29,7 @@ public abstract class AbstractMessage implements Serializable {
     public Date getTimeOfSending() {
         return timeOfSending;
     }
+
+    /* TODO: А где сеттеры?((( */
 
 }

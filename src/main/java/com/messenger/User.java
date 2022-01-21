@@ -2,12 +2,25 @@ package com.messenger;
 
 import java.util.UUID;
 
+/* TODO: Это сущность. Надо ее в отдельный пакет к сообщениям и чатам */
+/* TODO: (доп литература) Можно не создавать явно геттеры, сеттеры, toString, equals, конструкторы (с параметрами/без)
+*   можно использовать библиотеку lombok (а конкретно аннотации @Getter @Setter @AllArgsConstructor, @NoArgsConstructor,
+*   @ToString, @Builder (!!! очень полезная штука) */
 public class User {
+
+    /* TODO: Класс называется User. Значит поля уже по сути "юзеровские". Используй все поля без префикса user */
     private UUID userUUID;
+
+    /* TODO: Просто name */
     private String userName;
+
+    /* TODO: Просто info */
     private String userInfo;
-    private String userLogin;
-    private String userPassword;
+
+    /* TODO: (не обязательно, но для profit). Логин и пароль (credentials) обычно располагаются в другом классе
+        (может быть, во внутреннем)  */
+    private String userLogin; /* TODO: Просто login */
+    private String userPassword; /* TODO: Просто password */
 
     public User( UUID userUUID, String userName, String userInfo, String userLogin, String userPassword){
         this.userUUID = userUUID;

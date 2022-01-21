@@ -8,10 +8,17 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+/* TODO: Ctrl + Alt + O */
 import java.util.ArrayList;
 import java.util.List;
 
+
+/* TODO: Сделать интерфейс Serializer, который будет классом-родителем для JSONSerializer, YAMLSerializer ... */
+/* TODO: Сделать отдельную логику работы с файлами */
+
 public class DataProcessing implements Serializable {
+
+
 
     public static void serializeConversations(Conversations conversations, OutputStream out){
 
@@ -20,6 +27,8 @@ public class DataProcessing implements Serializable {
             outputStream.writeObject(conversations);
         }
         catch (IOException exception){
+            /* TODO: Надо подумать над нормальной обработкой исключений (почитай в гугле) */
+            // Контроллер использует сериализацию чатов. -> 400 Bad Request (как будет выглядеть обработка ошибок)
             exception.printStackTrace();
         }
 
@@ -32,6 +41,7 @@ public class DataProcessing implements Serializable {
             inpStream = new ObjectInputStream(in);
         }
         catch (IOException exception){
+            /* TODO: Надо подумать над нормальной обработкой исключений (почитай в гугле) */
             exception.printStackTrace();
         }
         try{
@@ -39,6 +49,7 @@ public class DataProcessing implements Serializable {
             conversations = (Conversations)inpStream.readObject();
         }
         catch (IOException | ClassNotFoundException exception){
+            /* TODO: Надо подумать над нормальной обработкой исключений (почитай в гугле) */
             exception.printStackTrace();
         }
 
@@ -51,6 +62,7 @@ public class DataProcessing implements Serializable {
         try {
             mapper.writeValue( out, conversations);
         } catch (IOException e) {
+            /* TODO: Надо подумать над нормальной обработкой исключений (почитай в гугле) */
             e.printStackTrace();
         }
     }
@@ -70,6 +82,7 @@ public class DataProcessing implements Serializable {
         try {
             result.append(mapper.writeValueAsString(conversations));
         } catch (JsonProcessingException e) {
+            /* TODO: Надо подумать над нормальной обработкой исключений (почитай в гугле) */
             e.printStackTrace();
         }
 

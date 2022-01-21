@@ -2,6 +2,7 @@ package com.messenger;
 
 
 import java.io.Serializable;
+/* TODO: Ctrl + Alt + O */
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -16,18 +17,24 @@ public class Conversation implements Serializable {
     private UUID creatorUUID;
     private List<AbstractMessage> conversationMessages; //Imessage
 
+    /* TODO: Создать конструктор без участников и сообщений */
+    /* TODO: Слишком длинная строка. Ориентируйся на вертикальную прямую (вот эту -------------------------------------> */
     public Conversation(UUID conversationUUID, String conversationName, List<UUID> membersUUIDList, UUID creatorUUID,  List<AbstractMessage> conversationMessages){
         this.conversationUUID = conversationUUID;
         this.conversationMessages = conversationMessages;
         this.creatorUUID = creatorUUID;
         this.membersUUIDList = membersUUIDList;
         this.conversationName = conversationName;
+
+        /* TODO: А что если на вход подадут список участников, в которых нет создателя? */
     }
 
     public Conversation() {
 
     }
 
+    /* TODO: Создать методы добавления, удаления, редактирования сообщения */
+    /* TODO: Создать методы добавления, удаления участников */
 
     public UUID getConversationUUID() {
         return conversationUUID;
@@ -80,7 +87,8 @@ public class Conversation implements Serializable {
             result.append(this.getConversationMessages().get(i).toString() + '\t');
         }
         result.append(" } ");
-        result.append("conversationId = " + conversationUUID);
+        /* TODO: Можно без "+" */
+        result.append("conversationId = ").append(conversationUUID);
         result.append("conversationName = " + conversationName);
         result.append("creatorId = "  + creatorUUID);
         result.append("membersIdList = { ");

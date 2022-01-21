@@ -7,10 +7,18 @@ import java.util.UUID;
 
 public class Users {
 
+    /* TODO: Заменить на коллекцию */
+    /* FIXME: users */
     private User[] usrs;
+
+    /* TODO: Использовать конкретную реализацию как тип возвращаемого объекта не целесообразно */
+    /*  hint: используй интерфейсы, если они есть. Пример: ArrayList -> List */
     public ArrayList<UUID> getUserUUIDByName(String name, double percentage){
 
+        // TODO: ArrayList -> List
         ArrayList<UUID> result = new ArrayList<>();
+
+        // TODO: foreach
         for (int i =0; i< this.usrs.length; i++){
 
             String convName = this.usrs[i].getUserName();

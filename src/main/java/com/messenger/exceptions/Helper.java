@@ -1,5 +1,5 @@
 package com.messenger.exceptions;
-
+/* TODO: Перенести в отдельный пакет */
 public class Helper {
 
     public static int StrCompare(String str1, String str2){

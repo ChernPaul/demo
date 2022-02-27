@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" lang="">
 <head>
-    <title>All conversations</title>
+    <title>All conversationContext</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
@@ -12,17 +12,14 @@
         <th>Conversation ID</th>
         <th>Conversation Content</th>
     </tr>
-    <tr th:each="conversation : ${conversationsList}">
+    <tr th:each="conversation : ${conversations_list}">
         <td th:text="${conversation.getConversationName()}"></td>
         <td th:text="${conversation.getConversationUUID()}"></td>
-        <td><a href="/conversationView.html" th:href="@{/conversationView/{UUID}(UUID=${conversation.getConversationUUID()})}">View Messages</a></td>
+        <td><a href="/viewConversation.html" th:href="@{/conversations/{UUID}/messages(UUID=${conversation.getConversationUUID()})}">View Messages</a></td>
     </tr>
 </table>
 
 <p><a href="/index.html" th:href="@{/}">Return to main page</a></p>
-
-
-
-
+<p><a th:href="@{/conversations/add}">Add new conversation</a></p>
 </body>
 </html>

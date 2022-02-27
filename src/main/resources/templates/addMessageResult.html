@@ -1,0 +1,18 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add message result page</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Result</h1>
+<p th:text="'Message content: ' + ${message.getText()}"> </p>
+<p th:text="'Time of Sending: ' + ${message.getTimeOfSending()}"> </p>
+<p th:text="'Sender UUID: ' + ${message.getSenderUUID()}"> </p>
+
+<p><a th:href="@{/conversations/{UUID}/messages/add(UUID=${conversation_id})}">Submit another message</a></p>
+<p><a href="/viewConversation.html" th:href="@{/conversations/{UUID}/messages(UUID=${conversation_id})}">Back to view this conversation</a></p>
+<p><a href="/conversations">Back to view conversations</a></p>
+<p><a href="/index.html" th:href="@{/}">Return to main page</a></p>
+</body>
+</html>

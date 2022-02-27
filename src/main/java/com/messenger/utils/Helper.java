@@ -1,5 +1,4 @@
-package com.messenger.exceptions;
-/* TODO: Перенести в отдельный пакет */
+package com.messenger.utils;
 public class Helper {
 
     public static int StrCompare(String str1, String str2){
@@ -19,6 +18,5 @@ public class Helper {
 
         return result;
     }
-
 
 }

@@ -11,18 +11,26 @@
         <th>Message content</th>
         <th>Time of sending</th>
         <th>Sender UUID</th>
+        <th>Message UUID</th>
+        <th>Update action</th>
+        <th>Delete action</th>
+        <th>View user</th>
     </tr>
 
     <tr th:each="message : ${messages_list}">
         <td th:text="${message.getText()}"></td>
         <td th:text="${message.getTimeOfSending()}"></td>
-        <td th:text="${message.getSenderUUID()}"></td>
+        <td th:text="${message.getUserId()}"></td>
+        <td th:text="${message.getMessageId()}"></td>
+        <td><a th:href="@{/conversations/{conversationUUID}/messages/{messageUUID}/update (conversationUUID=${conversation_id},messageUUID=${message.getMessageId()})}"> Update message</a></td>
+        <td><a th:href="@{/conversations/{conversationUUID}/messages/{messageUUID}/delete (conversationUUID=${conversation_id},messageUUID=${message.getMessageId()})}"> Delete message</a></td>
+        <td><a th:href="@{/users/{user_id}/view (user_id =${message.getUserId()})}"> View User</a></td>
     </tr>
 
 </table>
 
-<p><a href="/addMessage.html" th:href="@{/conversations/{UUID}/messages/add(UUID=${conversation_id})}">Add new message</a></p>
-<p><a href="/index.html" th:href="@{/}">Return to main page</a></p>
+<p><a th:href="@{/conversations/{UUID}/messages/add(UUID=${conversation_id})}">Add new message</a></p>
+<p><a href="/index.html">Return to main page</a></p>
 <p><a href="/conversations">Back to view conversations</a></p>
 </body>
 </html>

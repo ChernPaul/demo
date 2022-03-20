@@ -3,10 +3,9 @@ package com.messenger.model;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.messenger.constants.ModelConstants;
+import org.hibernate.annotations.Type;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
@@ -18,32 +17,39 @@ import java.util.UUID;
         @JsonSubTypes.Type(value = TextMessage.class, name = ModelConstants.TEXT_MESSAGE)
 
 })
-@MappedSuperclass
+
+@Inheritance
+@Entity
 public abstract class AbstractMessage implements Serializable {
 
     @Id
-    @Column(name = "id")
-    protected UUID id;
-    @Column(name = "sender_UUID")
-    protected UUID senderUUID;
+    @Type(type = "org.hibernate.type.UUIDCharType")
+    @Column(name = "message_id")
+    protected UUID messageId;
+    @Type(type = "org.hibernate.type.UUIDCharType")
+    @Column(name = "user_id")
+    protected UUID userId;
     @Column(name = "time_of_sending")
     protected Date timeOfSending;
 
-    public UUID getId() {
-        return id;
+
+    public UUID getMessageId() {
+        return messageId;
     }
 
-    public void setId(UUID id) {
-        this.id = id;
+    public void setMessageId(UUID messageId) {
+        this.messageId = messageId;
     }
 
-    public UUID getSenderUUID() {
-        return senderUUID;
+    public UUID getUserId(){
+        return userId;
     }
-    public Date getTimeOfSending() {return timeOfSending;    }
-    public void setSenderUUID(UUID senderID) {
-        this.senderUUID = senderID;
+
+    public void setUserId(UUID userId) {
+        this.userId = userId;
     }
+
+    public Date getTimeOfSending() {return timeOfSending;}
     public void setTimeOfSending(Date timeOfSending) {
         this.timeOfSending = timeOfSending;
     }

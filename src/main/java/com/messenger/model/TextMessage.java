@@ -7,10 +7,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
 
-// text_message   id sender_UUID"
-
-//    @Column(name = "time_of_sending")
-
 
 @Entity
 @Table(name = "text_message")
@@ -18,28 +14,31 @@ public class TextMessage extends AbstractMessage implements Serializable {
     @Column(name = "content")
     private String text;
 
-    public TextMessage(String text, UUID senderUUID, Date timeOfSending){
+    public TextMessage(String text, UUID userId, Date timeOfSending){
         this.text = text;
-        this.senderUUID = senderUUID;
+        this.userId = userId;
         this.timeOfSending = timeOfSending;
+        this.messageId = UUID.randomUUID();
     }
 
-    public TextMessage(UUID id, String text, UUID senderUUID, Date timeOfSending) {
+    public TextMessage(UUID messageId, String text, UUID userId, Date timeOfSending) {
         this.text = text;
-        this.senderUUID = senderUUID;
+        this.userId = userId;
         this.timeOfSending = timeOfSending;
-        this.id = id;
+        this.messageId = messageId;
     }
 
-    public TextMessage(String text, UUID senderUUID){
+    public TextMessage(String text, UUID userId){
         this.text = text;
-        this.senderUUID = senderUUID;
+        this.userId = userId;
         this.timeOfSending = new java.util.Date();
+        this.messageId = UUID.randomUUID();
     }
     public TextMessage(String text) {
         this.text = text;
-        this.senderUUID = UUID.randomUUID();
+        this.userId = UUID.randomUUID();
         this.timeOfSending = new java.util.Date();
+        this.messageId = UUID.randomUUID();
     }
 
     public void setText(String text) {
@@ -55,7 +54,7 @@ public class TextMessage extends AbstractMessage implements Serializable {
     public String toString() {
         return "Message { " +
                 "text = " + text  +
-                ", senderId = " + senderUUID +
+                ", senderId = " + userId +
                 ", timeOfSending = " + timeOfSending +
                 '}';
     }

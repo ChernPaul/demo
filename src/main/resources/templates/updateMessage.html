@@ -2,18 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Add Message</title>
+    <title>Update Message</title>
 </head>
 <body>
 
-<h1>Add Message</h1>
+<h1>Update Message</h1>
 
-<form action="#" th:action="@{/conversations/{UUID}/messages/add(UUID=${conversation_id})}" th:object="${message}" method="post">
+<form action="#" th:action="@{/conversations/{conversationUUID}/messages/{messageUUID}/update (conversationUUID=${conversation_id},messageUUID = ${message_id}) }" th:object="${message}" method="post">
     <p>Message content: <input type="text" th:field="*{text}" /></p>
     <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
 </form>
-
-
 
 <p><a th:href="@{/conversations/{UUID}/messages(UUID=${conversation_id})}">Back to view this conversation</a></p>
 <p><a href="/conversations">Back to view conversations</a></p>

@@ -7,9 +7,11 @@ import java.util.*;
 
 public class ConversationContext implements Serializable {
 
+
     private ConversationContext() {
         this.conversations = null;
     }
+
 
     private static class SingletonHolder {
         private final static ConversationContext instance = new ConversationContext();
@@ -19,6 +21,7 @@ public class ConversationContext implements Serializable {
         return SingletonHolder.instance;
     }
 
+
     private List<Conversation> conversations;
 
     public List<Conversation> getConversations() {
@@ -27,6 +30,10 @@ public class ConversationContext implements Serializable {
 
     public void setConversations(List<Conversation> conversations) {
         this.conversations = conversations;
+    }
+
+    public void removeConversationByID(UUID conversationId){
+        this.getConversations().removeIf(conversation -> conversation.getConversationUUID().equals(conversationId));
     }
 
 

@@ -1,13 +1,12 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Add message result page</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta charset="UTF-8">
+    <title>Delete Message</title>
 </head>
 <body>
-<h1>Result</h1>
-
-<p th:text="'Message content: ' + ${message.getText()}"> </p>
+<h1>Delete message</h1>
+<p>Deleted successfully</p>
 <p><a th:href="@{/conversations/{UUID}/messages(UUID=${conversation_id})}">Back to view this conversation</a></p>
 <p><a href="/conversations">Back to view conversations</a></p>
 <p><a href="/index.html">Return to main page</a></p>

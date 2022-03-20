@@ -1,28 +1,63 @@
 package com.messenger.model;
+import org.hibernate.annotations.Type;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-
+@Entity
+@Table(name = "conversation")
 public class Conversation implements Serializable {
+    @Id
+    @Type(type = "org.hibernate.type.UUIDCharType")
+    @Column(name = "conversation_id")
     private UUID conversationUUID;
+    @Column
     private String conversationName;
-    private List<UUID> membersUUIDList;
+    @Column
+    @Type(type = "org.hibernate.type.UUIDCharType")
     private UUID creatorUUID;
+
+    @ManyToMany
+    @JoinTable(name="conversations_members",
+            joinColumns={@JoinColumn(name="user_id")},
+            inverseJoinColumns={@JoinColumn(name="conversation_id")})
+    private List<User> membersUUIDList;
+
+    public List<User> getMembersList() {
+        return membersUUIDList;
+    }
+    public void setMembersList(List<User> membersUUIDList) {
+        this.membersUUIDList = membersUUIDList;
+    }
+
+
+    @OneToMany(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
+    @JoinColumn(name="conversation_id")
     private List<AbstractMessage> conversationMessages;
 
-    public Conversation(UUID conversationUUID, String conversationName, UUID creatorUUID) {
+
+    public List<AbstractMessage> getConversationMessages() {
+        return conversationMessages;
+    }
+    public void setConversationMessages(List<AbstractMessage> conversationMessages) {
+        this.conversationMessages = conversationMessages;
+    }
+
+
+    public Conversation(UUID conversationUUID, String conversationName, User creatorUser) {
         this.conversationUUID = conversationUUID;
         this.conversationMessages = null;
         this.creatorUUID = creatorUUID;
         this.membersUUIDList = new ArrayList<>();
-        this.addMemberByID(creatorUUID);
+        this.addMemberByID(creatorUser);
         this.conversationName = conversationName;
     }
 
 
-    public Conversation(UUID conversationUUID, String conversationName, List<UUID> membersUUIDList, UUID creatorUUID,
+    public Conversation(UUID conversationUUID, String conversationName, List<User> membersUUIDList, UUID creatorUUID,
                         List<AbstractMessage> conversationMessages) {
         this.conversationUUID = conversationUUID;
         this.conversationMessages = conversationMessages;
@@ -52,8 +87,8 @@ public class Conversation implements Serializable {
         return conversationName;
     }
 
-    public void addMemberByID(UUID id) {
-        this.membersUUIDList.add(id);
+    public void addMemberByID(User user) {
+        this.membersUUIDList.add(user);
     }
     public void removeMemberByID(UUID id) {
         this.membersUUIDList.remove(id);
@@ -75,27 +110,24 @@ public class Conversation implements Serializable {
         return creatorUUID;
     }
 
-    public List<AbstractMessage> getConversationMessages() {
-        return conversationMessages;
-    }
-
-    public List<UUID> getMembersUUIDList() {
-        return membersUUIDList;
-    }
-
     public void setConversationUUID(UUID conversationUUID) {
         this.conversationUUID = conversationUUID;
     }
 
-    public void setConversationMessages(List<AbstractMessage> conversationMessages) {
-        this.conversationMessages = conversationMessages;
-    }
     public void setCreatorUUID(UUID creatorUUID) {
         this.creatorUUID = creatorUUID;
     }
 
-    public void setMembersUUIDList(List<UUID> membersUUIDList) {
-        this.membersUUIDList = membersUUIDList;
+    public void removeMessageByID(UUID msgUUID){
+        this.conversationMessages.removeIf(message -> message.getMessageId().equals(msgUUID));
+    }
+    public AbstractMessage getMessageByID(UUID msgUUID){
+        for (AbstractMessage message:this.conversationMessages
+             ) {
+            if (message.getMessageId().equals(msgUUID))
+                return message;
+        }
+        return null;
     }
 
     @Override
@@ -109,8 +141,8 @@ public class Conversation implements Serializable {
         result.append(" } ").append("conversationId = ").append(conversationUUID);
         result.append("conversationName = ").append(conversationName);
         result.append("creatorId = ").append(creatorUUID).append("membersIdList = { ");
-        for (int i = 0; i < this.getMembersUUIDList().size(); i++) {
-            result.append(this.getMembersUUIDList().get(i).toString() + '\t');
+        for (int i = 0; i < this.getMembersList().size(); i++) {
+            result.append(this.getMembersList().get(i).toString() + '\t');
         }
         result.append(" } ").append("}");
         return result.toString();

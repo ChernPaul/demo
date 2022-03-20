@@ -11,15 +11,17 @@
         <th>Conversation name</th>
         <th>Conversation ID</th>
         <th>Conversation Content</th>
+        <th>Action</th>
     </tr>
     <tr th:each="conversation : ${conversations_list}">
         <td th:text="${conversation.getConversationName()}"></td>
         <td th:text="${conversation.getConversationUUID()}"></td>
-        <td><a href="/viewConversation.html" th:href="@{/conversations/{UUID}/messages(UUID=${conversation.getConversationUUID()})}">View Messages</a></td>
+        <td><a th:href="@{/conversations/{UUID}/messages(UUID=${conversation.getConversationUUID()})}">View Messages</a></td>
+        <td><a th:href="@{/conversations/{UUID}/delete(UUID=${conversation.getConversationUUID()})}">Delete Conversation</a></td>
     </tr>
 </table>
 
-<p><a href="/index.html" th:href="@{/}">Return to main page</a></p>
+<p><a href="/index.html"> Return to main page</a></p>
 <p><a th:href="@{/conversations/add}">Add new conversation</a></p>
 </body>
 </html>

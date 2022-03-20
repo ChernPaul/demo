@@ -12,13 +12,14 @@ import java.util.UUID;
 
 @Controller
 @RequestMapping("/conversations")
-public class ConversationController {
+public class ConversationsController {
 
 
     private static class Views{
         public static final String ADD_CONVERSATION = "addConversation";
         public static final String CONVERSATIONS = "viewConversations";
         public static final String ADD_CONVERSATION_RESULT = "addConversationResult";
+        public static final String DELETE_CONVERSATION = "deleteConversation";
     }
 
     private static class ModelAttributes{
@@ -26,9 +27,13 @@ public class ConversationController {
         public static final String CONVERSATIONS_LIST = "conversations_list";
 
     }
+    private static class PathVariables{
+        public static final String CONVERSATION_ID = "conversation_id";
+    }
 
     private static class Endpoints{
         public static final String ADD_CONVERSATION = "/add";
+        public static final String DELETE_CONVERSATION = "/{conversation_id}/delete";
     }
 
     @GetMapping
@@ -60,6 +65,12 @@ public class ConversationController {
 
         ConversationContext.getInstance().getConversations().add(conversation);
         return Views.ADD_CONVERSATION_RESULT;
+    }
+
+    @GetMapping(value = Endpoints.DELETE_CONVERSATION)
+    public String messageDeleteForm(@PathVariable(PathVariables.CONVERSATION_ID) UUID conversation_id, Model model) {
+        ConversationContext.getInstance().removeConversationByID(conversation_id);
+        return Views.DELETE_CONVERSATION;
     }
 
 

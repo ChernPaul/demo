@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Update Conversation</title>
+</head>
+<body>
+
+<h1>Update Conversation</h1>
+
+<form action="#" th:action="@{/conversations/{conversationUUID}/update (conversationUUID=${conversation_id}) }" th:object="${conversation}" method="post">
+  <p>Creator UUID: <input type="text" th:field="*{creatorUUID}" /></p>
+  <p>Conversation Name: <input type="text" th:field="*{conversationName}" /></p>
+  <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+</form>
+
+<p><a th:href="@{/conversations/{UUID}/messages(UUID=${conversation_id})}">Back to view this conversation</a></p>
+<p><a href="/conversations">Back to view conversations</a></p>
+<p><a href="/index.html">Return to main page</a></p>
+</body>
+</html>

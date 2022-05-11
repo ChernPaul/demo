@@ -81,7 +81,7 @@ public class MessagesController {
         // RANDOM DATA
         message.setMessageId(UUID.randomUUID());
         message.setTimeOfSending(new Date());
-        message.setUserId(UUID.randomUUID());
+        message.setProfileId(UUID.randomUUID());
         // RANDOM DATA
         Conversation currentConversation = ConversationContext.getInstance().getConversationByUUID(conversationId);
         currentConversation.addMessage(message);
@@ -101,21 +101,21 @@ public class MessagesController {
     //
 
     @GetMapping(value = Endpoints.UPDATE_MESSAGE)
-    public String messageUpdateForm(@PathVariable(PathVariables.CONVERSATION_ID) UUID conversationId,
+    public String messageUpdateForm(@PathVariable(PathVariables.CONVERSATION_ID) UUID conversation_id,
                                     @PathVariable(PathVariables.MESSAGE_ID) UUID message_id, Model model) {
-        model.addAttribute(ModelAttributes.CONVERSATION_ID, conversationId.toString());
+        model.addAttribute(ModelAttributes.CONVERSATION_ID, conversation_id.toString());
         model.addAttribute(ModelAttributes.MESSAGE_ID, message_id);
         model.addAttribute(ModelAttributes.MESSAGE, new TextMessage());
         return Views.UPDATE_MESSAGE;
     }
 
     @PostMapping(value = Endpoints.UPDATE_MESSAGE)
-    public String updateMessageAndCheck(@PathVariable(PathVariables.CONVERSATION_ID) UUID conversationId,
+    public String updateMessageAndCheck(@PathVariable(PathVariables.CONVERSATION_ID) UUID conversation_id,
                                         @PathVariable(PathVariables.MESSAGE_ID) UUID message_id,
                                         @ModelAttribute TextMessage message, Model model) {
         model.addAttribute(ModelAttributes.MESSAGE, message);
 
-        TextMessage updatedMessage = (TextMessage) ConversationContext.getInstance().getConversationByUUID(conversationId).getMessageByID(message_id);
+        TextMessage updatedMessage = (TextMessage) ConversationContext.getInstance().getConversationByUUID(conversation_id).getMessageByID(message_id);
         updatedMessage.setText(message.getText());
         return Views.UPDATE_MESSAGE_RESULT;
     }

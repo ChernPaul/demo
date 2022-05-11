@@ -2,6 +2,7 @@ package com;
 
 
 import com.messenger.model.*;
+import com.messenger.repos.MessagesRepository;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -17,20 +18,20 @@ public class ApplicationClass {
 
         SpringApplication.run(ApplicationClass.class, args);
 
-        List<User> senders = new ArrayList<>();
-        senders.add(new User(UUID.randomUUID(), "Name 1" , "Description 1" ));
-        senders.add(new User(UUID.randomUUID(), "Name 2" , "Description 2" ));
-        senders.add(new User(UUID.randomUUID(), "Name 3" , "Description 3" ));
+        List<Profile> senders = new ArrayList<>();
+        senders.add(new Profile(UUID.randomUUID(), "Name 1" , "Description 1" ));
+        senders.add(new Profile(UUID.randomUUID(), "Name 2" , "Description 2" ));
+        senders.add(new Profile(UUID.randomUUID(), "Name 3" , "Description 3" ));
 
         List<List<AbstractMessage>> msgListArray = new ArrayList<>();
-        List<User> usersList = new ArrayList<>();
+        List<Profile> profilesList = new ArrayList<>();
         for (int j = 0; j < 10; j++) {
             List<AbstractMessage> msgList= new ArrayList<>();
 
             for (int i = 0; i < 10; i++) {
-                User user = new User(UUID.randomUUID(), "Name" + i, "Description" + i);
-                usersList.add(user);
-                msgList.add(new TextMessage("Conversation" + j + "MSG" + i, user.getUserId(), new Date())); //generate UUID
+                Profile profile = new Profile(UUID.randomUUID(), "Name" + i, "Description" + i);
+                profilesList.add(profile);
+                msgList.add(new TextMessage("Conversation" + j + "MSG" + i, profile.getProfileUUID(), new Date())); //generate UUID
                 System.out.println(msgList.get(i).toString());
             }
             msgListArray.add(msgList);
@@ -38,7 +39,7 @@ public class ApplicationClass {
 
         List<Conversation> conversationList = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            Conversation tmp = new Conversation(UUID.randomUUID(), "CNV name" + i, usersList.get(i));
+            Conversation tmp = new Conversation(UUID.randomUUID(), "CNV name" + i, profilesList.get(i));
             tmp.setMembersList(senders);
             tmp.setConversationMessages(msgListArray.get(i));
             conversationList.add(tmp);
@@ -46,9 +47,11 @@ public class ApplicationClass {
         }
 
 
-        UserContext.getInstance().setUsers(usersList);
+        ProfileContext.getInstance().setProfiles(profilesList);
         ConversationContext.getInstance().setConversations(conversationList);
         System.out.println(ConversationContext.getInstance().toString());
     }
+
+
 
 }

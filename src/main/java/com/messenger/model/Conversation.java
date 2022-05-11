@@ -14,22 +14,23 @@ public class Conversation implements Serializable {
     @Type(type = "org.hibernate.type.UUIDCharType")
     @Column(name = "conversation_id")
     private UUID conversationUUID;
-    @Column
+
     private String conversationName;
-    @Column
+
     @Type(type = "org.hibernate.type.UUIDCharType")
+    @Column(name = "creator_id")
     private UUID creatorUUID;
 
     @ManyToMany
     @JoinTable(name="conversations_members",
-            joinColumns={@JoinColumn(name="user_id")},
+            joinColumns={@JoinColumn(name="profile_id")},
             inverseJoinColumns={@JoinColumn(name="conversation_id")})
-    private List<User> membersUUIDList;
+    private List<Profile> membersUUIDList;
 
-    public List<User> getMembersList() {
+    public List<Profile> getMembersList() {
         return membersUUIDList;
     }
-    public void setMembersList(List<User> membersUUIDList) {
+    public void setMembersList(List<Profile> membersUUIDList) {
         this.membersUUIDList = membersUUIDList;
     }
 
@@ -47,17 +48,17 @@ public class Conversation implements Serializable {
     }
 
 
-    public Conversation(UUID conversationUUID, String conversationName, User creatorUser) {
+    public Conversation(UUID conversationUUID, String conversationName, Profile creatorProfile) {
         this.conversationUUID = conversationUUID;
         this.conversationMessages = null;
         this.creatorUUID = creatorUUID;
         this.membersUUIDList = new ArrayList<>();
-        this.addMemberByID(creatorUser);
+        this.addProfileByID(creatorProfile);
         this.conversationName = conversationName;
     }
 
 
-    public Conversation(UUID conversationUUID, String conversationName, List<User> membersUUIDList, UUID creatorUUID,
+    public Conversation(UUID conversationUUID, String conversationName, List<Profile> membersUUIDList, UUID creatorUUID,
                         List<AbstractMessage> conversationMessages) {
         this.conversationUUID = conversationUUID;
         this.conversationMessages = conversationMessages;
@@ -87,10 +88,10 @@ public class Conversation implements Serializable {
         return conversationName;
     }
 
-    public void addMemberByID(User user) {
-        this.membersUUIDList.add(user);
+    public void addProfileByID(Profile profile) {
+        this.membersUUIDList.add(profile);
     }
-    public void removeMemberByID(UUID id) {
+    public void removeProfileByID(UUID id) {
         this.membersUUIDList.remove(id);
     }
 

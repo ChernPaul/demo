@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="">
+<head>
+    <title>All conversationContext</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<table>
+    <tr>
+        <th>Profile name</th>
+        <th>Profile ID</th>
+        <th>Profile description</th>
+    </tr>
+    <tr>
+        <td th:text="${profile.getProfileName()}"></td>
+        <td th:text="${profile.getProfileUUID()}"></td>
+        <td th:text="${profile.getProfileDescription()}"></td>
+    </tr>
+</table>
+
+<p><a href="/"> Return to main page</a></p>
+<p><a href="/conversations">Back to view conversations</a></p>
+</body>
+</html>

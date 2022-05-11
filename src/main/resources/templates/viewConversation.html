@@ -14,17 +14,17 @@
         <th>Message UUID</th>
         <th>Update action</th>
         <th>Delete action</th>
-        <th>View user</th>
+        <th>View profile</th>
     </tr>
 
     <tr th:each="message : ${messages_list}">
         <td th:text="${message.getText()}"></td>
         <td th:text="${message.getTimeOfSending()}"></td>
-        <td th:text="${message.getUserId()}"></td>
+        <td th:text="${message.getProfileId()}"></td>
         <td th:text="${message.getMessageId()}"></td>
         <td><a th:href="@{/conversations/{conversationUUID}/messages/{messageUUID}/update (conversationUUID=${conversation_id},messageUUID=${message.getMessageId()})}"> Update message</a></td>
         <td><a th:href="@{/conversations/{conversationUUID}/messages/{messageUUID}/delete (conversationUUID=${conversation_id},messageUUID=${message.getMessageId()})}"> Delete message</a></td>
-        <td><a th:href="@{/users/{user_id}/view (user_id =${message.getUserId()})}"> View User</a></td>
+        <td><a th:href="@{/profiles/{profile_id}/view (profile_id =${message.getProfileId()})}"> View Profile</a></td>
     </tr>
 
 </table>

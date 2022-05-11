@@ -18,10 +18,11 @@
         <td th:text="${conversation.getConversationUUID()}"></td>
         <td><a th:href="@{/conversations/{UUID}/messages(UUID=${conversation.getConversationUUID()})}">View Messages</a></td>
         <td><a th:href="@{/conversations/{UUID}/delete(UUID=${conversation.getConversationUUID()})}">Delete Conversation</a></td>
+        <td><a th:href="@{/conversations/{UUID}/update(UUID=${conversation.getConversationUUID()})}">Update Conversation</a></td>
     </tr>
 </table>
 
-<p><a href="/index.html"> Return to main page</a></p>
+<p><a href="/"> Return to main page</a></p>
 <p><a th:href="@{/conversations/add}">Add new conversation</a></p>
 </body>
 </html>

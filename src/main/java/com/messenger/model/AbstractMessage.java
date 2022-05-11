@@ -28,7 +28,7 @@ public abstract class AbstractMessage implements Serializable {
     protected UUID messageId;
     @Type(type = "org.hibernate.type.UUIDCharType")
     @Column(name = "user_id")
-    protected UUID userId;
+    protected UUID profileId;
     @Column(name = "time_of_sending")
     protected Date timeOfSending;
 
@@ -41,12 +41,12 @@ public abstract class AbstractMessage implements Serializable {
         this.messageId = messageId;
     }
 
-    public UUID getUserId(){
-        return userId;
+    public UUID getProfileId(){
+        return profileId;
     }
 
-    public void setUserId(UUID userId) {
-        this.userId = userId;
+    public void setProfileId(UUID profileId) {
+        this.profileId = profileId;
     }
 
     public Date getTimeOfSending() {return timeOfSending;}

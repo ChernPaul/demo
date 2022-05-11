@@ -20,11 +20,14 @@ public class ConversationsController {
         public static final String CONVERSATIONS = "viewConversations";
         public static final String ADD_CONVERSATION_RESULT = "addConversationResult";
         public static final String DELETE_CONVERSATION = "deleteConversation";
+        public static final String UPDATE_CONVERSATION = "updateConversation";
+        public static final String UPDATE_CONVERSATION_RESULT = "updateConversationResult";
     }
 
     private static class ModelAttributes{
         public static final String CONVERSATION = "conversation";
         public static final String CONVERSATIONS_LIST = "conversations_list";
+        public static final String CONVERSATION_CREATOR_UUID = "conversation_creator_uuid";
 
     }
     private static class PathVariables{
@@ -34,6 +37,7 @@ public class ConversationsController {
     private static class Endpoints{
         public static final String ADD_CONVERSATION = "/add";
         public static final String DELETE_CONVERSATION = "/{conversation_id}/delete";
+        public static final String UPDATE_CONVERSATION = "/{conversation_id}/update";
     }
 
     @GetMapping
@@ -53,8 +57,7 @@ public class ConversationsController {
     public String addConversationAndCheck(@ModelAttribute(name="conversation") Conversation conversation,
                                           Model model){
 
-
-        model.addAttribute(ModelAttributes.CONVERSATION, conversation);
+        //model.addAttribute(ModelAttributes.CONVERSATION, conversation);
 
         // RANDOM DATA
         conversation.setConversationUUID(UUID.randomUUID());
@@ -73,5 +76,22 @@ public class ConversationsController {
         return Views.DELETE_CONVERSATION;
     }
 
+    @GetMapping(value = Endpoints.UPDATE_CONVERSATION)
+    public String conversationUpdateForm(@PathVariable(PathVariables.CONVERSATION_ID) UUID conversation_id,
+                                         Model model) {
+        model.addAttribute(ModelAttributes.CONVERSATION,  new Conversation());
+        model.addAttribute(ModelAttributes.CONVERSATION_CREATOR_UUID, conversation_id.toString());
+        return Views.UPDATE_CONVERSATION;
+    }
+    @PostMapping(value = Endpoints.UPDATE_CONVERSATION)
+    public String updateConversationAndCheck(@ModelAttribute(name="conversation") Conversation conversation,
+                                             Model model,
+                                             @PathVariable(PathVariables.CONVERSATION_ID) UUID conversation_id){
+
+        Conversation updatedConversation = ConversationContext.getInstance().getConversationByUUID(conversation_id);
+        updatedConversation.setCreatorUUID(conversation.getCreatorUUID());
+        updatedConversation.setConversationName(conversation.getConversationName());
+        return Views.UPDATE_CONVERSATION_RESULT;
+    }
 
 }
